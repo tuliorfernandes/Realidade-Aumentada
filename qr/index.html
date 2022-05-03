@@ -3,8 +3,18 @@
     <head>
         <meta charset="utf-8">
         <title>Gerador de QR-Code</title>
+        <script src="https://raw.githack.com/papnkukn/qrcode-svg/master/dist/qrcode.min.js"></script>
     </head>
     <body>
-        Aqui fica o gerador de marcadores
+        <div id="container"></div>
+        <script>
+            var qrcode = new QRCode({
+              content: "Hello World!",
+              container: "svg-viewbox", //Responsive use
+              join: true //Crisp rendering and 4-5x reduced file size
+            });
+            var svg = qrcode.svg();
+            document.getElementById("container").innerHTML = svg;
+            </script>
     </body>
 </html>
