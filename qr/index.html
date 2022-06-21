@@ -15,7 +15,7 @@
         </svg>
         <script>
             var qrcode = new QRCode({
-              content: "Olá Mundo!",
+              content: window.location.origin + window.location.search, // URL para página principal + conteúdo da busca (texto após '?')
               padding: 0,
               width: 300,
               height: 300,
