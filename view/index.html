@@ -18,5 +18,19 @@
         <!-- Essa é a câmera virtual da cena 3D, e não a câmera do celular -->
     </a-scene>
 </body>
+<script>
+        function troca_modelo(nome_do_modelo)
+        {
+            const marcador = document.querySelector("a-marker");
+            while (marcador.lastChild)
+            {
+                marcador.removeChild(marcador.lastChild);
+            }
+
+            const modelo = document.createElement("a-gltf-model");
+            modelo.setAttribute("src", nome_do_modelo);
+            marcador.appendChild(modelo);
+        }
+</script>
 
 </html>
