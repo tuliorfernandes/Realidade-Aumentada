@@ -8,8 +8,9 @@
 <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
 <!-- we import arjs version without NFT but with marker + location based support -->
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<script src="https://raw.githack.com/cozmo/jsQR/master/dist/jsQR.js"></script>
 
-<body style="margin : 0px; overflow: hidden;">
+<body style="margin : 0px; overflow: hidden;" onload="iniciar()">
     <a-scene embedded arjs>
         <a-marker type="pattern" url="MARCADOR.patt" preset="custom">
             <a-gltf-model src="../models/Casinha.glb"></a-gltf-model>
@@ -19,7 +20,38 @@
     </a-scene>
 </body>
 <script>
-        function troca_modelo(nome_do_modelo)
+        var contexto;
+
+        function iniciar()
+        {
+            contexto = document.createElement("canvas").getContext("2d");
+            setInterval(ler_codigo, 250);
+        }
+
+        function ler_codigo()
+        {
+            const video = document.querySelector("video");
+            if (video)
+            {
+                contexto.canvas.width = video.videoWidth;
+                contexto.canvas.height = video.videoHeight;
+                contexto.drawImage(video, 0, 0, contexto.canvas.width, contexto.canvas.height);
+
+                const imagem = contexto.getImageData(0, 0, contexto.canvas.width, contexto.canvas.height);
+                const codigo = jsQR(imagem.data, imagem.width, imagem.height);
+
+                if (codigo)
+                {
+                    if (codigo.data != "")
+                    {
+                        trocar_modelo(codigo.data.replace("?", "/"));
+                    }
+                }
+            }
+
+        }
+
+        function trocar_modelo(nome_do_modelo)
         {
             const marcador = document.querySelector("a-marker");
             while (marcador.lastChild)
