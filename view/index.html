@@ -11,7 +11,7 @@
 <script src="https://raw.githack.com/cozmo/jsQR/master/dist/jsQR.js"></script>
 
 <body style="margin : 0px; overflow: hidden;" onload="iniciar()">
-    <a-scene embedded arjs>
+    <a-scene embedded arjs vr-mode-ui="enabled: false">
         <a-marker type="pattern" url="MARCADOR.patt" preset="custom">
             <a-gltf-model src="../models/Casinha.glb"></a-gltf-model>
         </a-marker>
